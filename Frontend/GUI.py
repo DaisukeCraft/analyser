@@ -7,6 +7,7 @@ from tqdm import tqdm
 
 from Backend import DataContainer
 from Output import Exporter
+from Input import Importer
 from . import Separator, Frame, Label, Button, Combobox, Checkbutton
 
 
@@ -19,6 +20,7 @@ class GUI(tk.Tk):
         self.excluded_words: list[str] = excluded_words
         self.dataContainer = DataContainer()
         self.outputter = Exporter(self.dataContainer)
+        self.importer = Importer()
         self.file_loaded = False
 
         self.create_display()
@@ -57,9 +59,10 @@ class GUI(tk.Tk):
     def create_bottom_frame(self):
         self.bottom_frame = Frame(self)
 
-        self.label = Label(
+        self.data_state_label_text = tk.StringVar(value='No files loaded')
+        self.data_state_label = Label(
             self.bottom_frame,
-            text="No files loaded"
+            textvariable=self.data_state_label_text
         )
         self.open_button = Button(
             self.bottom_frame,
@@ -67,7 +70,7 @@ class GUI(tk.Tk):
             command=self.trigger_import
         )
 
-        self.label.pack(pady=10)
+        self.data_state_label.pack(pady=10)
         self.open_button.pack(pady=10)
 
     def create_top_frame(self):
@@ -218,34 +221,12 @@ class GUI(tk.Tk):
 
     def trigger_import(self):
         file_paths = filedialog.askopenfilenames(filetypes=[("Excel files", "*.xlsx")])
-
-        if file_paths:
-
-            self.file_loaded = True
-            self.label.config(text="Files loaded")
-
-            for file_path in tqdm(file_paths, desc="Loading files"):
-                self.analyze_excel(file_path)
-
-    def analyze_excel(self, file_path):
-        df = pd.read_excel(file_path, header=2, index_col=0).to_dict().values()
-
-        for company_and_description in tqdm(df, desc="Analyzing data"):
-            for company in company_and_description.keys():
-                company_abbreviation = company[::-1].split('(')[0][::-1][:-1]
-                company_name = company.split(f"({company_abbreviation})")[0].translate(
-                    str.maketrans('', '', string.punctuation)).strip()
-                company_description = company_and_description.get(company).translate(
-                    str.maketrans('', '', string.punctuation)).replace(company_name, '').strip().lower().split()
-
-                self.dataContainer.add_company(abbreviation=company_abbreviation, name=company_name,
-                                               description=company_description)
-
-        if self.file_loaded:
-            try:
-                self.dataContainer.analyse(self.excluded_words)
-            except Exception as e:
-                print(e)
-                self.label.config(text="File(s) loaded but failed to analyse")
-            else:
-                self.label.config(text="File(s) loaded and analysed")
+        file_paths = ('/home/bluealias/Downloads/Beispieldaten.xlsx',)
+        try:
+            self.importer.import_files(file_paths)
+        except KeyError:
+            print('Excel is the wrong fromat')
+        except Exception as e:
+            print(f"Failed to load and analyse data due to: '{e}'")
+        else:
+            self.data_state_label_text.set('Files loaded and analyed')
