@@ -20,7 +20,7 @@ class GUI(tk.Tk):
         self.excluded_words: list[str] = excluded_words
         self.dataContainer = DataContainer()
         self.outputter = Exporter(self.dataContainer)
-        self.importer = Importer()
+        self.importer = Importer(self.dataContainer)
         self.file_loaded = False
 
         self.create_display()
@@ -221,12 +221,8 @@ class GUI(tk.Tk):
 
     def trigger_import(self):
         file_paths = filedialog.askopenfilenames(filetypes=[("Excel files", "*.xlsx")])
-        file_paths = ('/home/bluealias/Downloads/Beispieldaten.xlsx',)
-        try:
-            self.importer.import_files(file_paths)
-        except KeyError:
-            print('Excel is the wrong fromat')
-        except Exception as e:
-            print(f"Failed to load and analyse data due to: '{e}'")
-        else:
-            self.data_state_label_text.set('Files loaded and analyed')
+
+        self.importer.import_files(file_paths)
+        self.data_state_label_text.set('File(s) loaded')
+        self.dataContainer.analyse(self.excluded_words)
+        self.data_state_label_text.set('File(s) loaded and analysed')

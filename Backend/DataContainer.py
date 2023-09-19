@@ -9,7 +9,7 @@ class DataContainer:
 
     def analyse(self, excluded_words: Optional[List[str]] = None) -> None:
         if len(self.stack) < 1:
-            return
+            raise IndexError('No data to analyse')
 
         self.data = General(self.stack)
         self.data.analyse(excluded_words)
