@@ -4,8 +4,8 @@ from Backend.Layer import Company
 
 class Stack:
     def __init__(self, stack: List[Company]):
-        self.content: List[Company] = stack
+        self.companies: List[Company] = stack
         self.length: int = self.length()
 
     def length(self) -> int:
-        return len(self.content)
+        return len(self.companies)

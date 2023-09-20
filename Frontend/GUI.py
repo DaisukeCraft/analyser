@@ -18,7 +18,7 @@ class GUI(tk.Tk):
     def __init__(self, excluded_words: list[str] = None):
         super().__init__()
         self.excluded_words: list[str] = excluded_words
-        self.dataContainer = DataContainer()
+        self.dataContainer = DataContainer(self.excluded_words)
         self.outputter = Exporter(self.dataContainer)
         self.importer = Importer(self.dataContainer)
         self.file_loaded = False
@@ -221,6 +221,7 @@ class GUI(tk.Tk):
 
     def trigger_import(self):
         file_paths = filedialog.askopenfilenames(filetypes=[("Excel files", "*.xlsx")])
+        file_paths = ('/home/bluealias/Downloads/Beispieldaten.xlsx',)
 
         self.importer.import_files(file_paths)
         self.data_state_label_text.set('File(s) loaded')

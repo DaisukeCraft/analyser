@@ -8,15 +8,15 @@ class Company:
         self.abbreviation: str = abbreviation
         self.name: str = name
         self.description: Description = Description(description)
-        self.statistics: Dict[str, Statistic] = {}
+        self.of_word: Dict[str, Statistic] = {}
 
     def analyse(self, excluded_words: Optional[List[str]]) -> None:
         """Analyses statistics for every word in the description, excluding specified words"""
-        for word in self.description.content:
+        for word in self.description.words:
             if word in excluded_words or word.isdigit():
                 continue
 
-            count = Statistic.calculate_count(word, self.description.content)
+            count = Statistic.calculate_count(word, self.description.words)
             percent = Statistic.calculate_percent(count, self.description.length)
 
-            self.statistics[word] = Statistic(count, percent)
+            self.of_word[word] = Statistic(count, percent)
