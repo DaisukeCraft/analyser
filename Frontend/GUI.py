@@ -59,44 +59,44 @@ class GUI(tk.Tk):
     def create_bottom_frame(self):
         self.bottom_frame = Frame(self)
 
-        self.data_state_label_text = tk.StringVar(value='No files loaded')
-        self.data_state_label = Label(
+        self.bottom_frame_info_label_text = tk.StringVar(value='No files loaded')
+        self.bottom_frame_info_label = Label(
             self.bottom_frame,
-            textvariable=self.data_state_label_text
+            textvariable=self.bottom_frame_info_label_text
         )
-        self.open_button = Button(
+        self.bottom_frame_open_file_button = Button(
             self.bottom_frame,
             text="Open CSV Files",
             command=self.trigger_import
         )
 
-        self.data_state_label.pack(pady=10)
-        self.open_button.pack(pady=10)
+        self.bottom_frame_info_label.pack(pady=10)
+        self.bottom_frame_open_file_button.pack(pady=10)
 
     def create_top_frame(self):
         self.top_frame = Frame(self)
 
-        self.dropdown_var = tk.StringVar(
+        self.top_frame_dropdown_var = tk.StringVar(
             value=self.DROPDOWN_OPTIONS[0]
         )
-        self.dropdown = Combobox(
+        self.top_frame_dropdown = Combobox(
             self.top_frame,
-            textvariable=self.dropdown_var,
+            textvariable=self.top_frame_dropdown_var,
             values=self.DROPDOWN_OPTIONS,
         )
-        self.dropdown.bind(
+        self.top_frame_dropdown.bind(
             "<<ComboboxSelected>>",
             self.update_options_visibility
         )
-        self.query_button = Button(
+        self.top_frame_query_button = Button(
             self.top_frame,
             text="Run",
             command=self.query_selected_option,
         )
 
-        self.dropdown.pack(pady=(20, 60), side=tk.TOP)
+        self.top_frame_dropdown.pack(pady=(20, 60), side=tk.TOP)
         self.create_top_frame_pages()
-        self.query_button.pack(pady=10, side=tk.BOTTOM)
+        self.top_frame_query_button.pack(pady=10, side=tk.BOTTOM)
 
     def create_query_method(self, option):
         def query_method():
@@ -113,77 +113,77 @@ class GUI(tk.Tk):
     def create_option_grid_1(self):
         self.option_frame_1 = Frame(self.top_frame)
 
-        word_rating_label = Label(
+        self.option_frame_1_word_rating_label = Label(
             self.option_frame_1,
             text="Word rating based on:"
         )
-        self.word_rating_var = tk.StringVar(
+        self.option_frame_1_word_rating_var = tk.StringVar(
             value=self.KEYWORD_DETERMINATION_OPTIONS[0]
         )
-        word_rating_combobox = Combobox(
+        self.option_frame_1_word_rating_combobox = Combobox(
             self.option_frame_1,
-            textvariable=self.word_rating_var,
+            textvariable=self.option_frame_1_word_rating_var,
             values=self.KEYWORD_DETERMINATION_OPTIONS,
         )
-        count_in_percent_label = Label(
+        self.option_frame_1_count_in_percent_label = Label(
             self.option_frame_1,
             text="Count in percent:"
         )
-        count_in_percent_var = tk.IntVar()
-        count_in_percent_checkbox = Checkbutton(
+        self.option_frame_1_count_in_percent_var = tk.IntVar()
+        self.option_frame_1_count_in_percent_checkbox = Checkbutton(
             self.option_frame_1,
-            variable=count_in_percent_var
+            variable=self.option_frame_1_count_in_percent_var
         )
 
-        word_rating_label.grid(row=0, column=0, pady=5, sticky='w')
-        word_rating_combobox.grid(row=0, column=1, pady=5, sticky='w')
-        count_in_percent_label.grid(row=1, column=0, pady=5, sticky='w')
-        count_in_percent_checkbox.grid(row=1, column=1, pady=5, sticky='w')
+        self.option_frame_1_word_rating_label.grid(row=0, column=0, pady=5, sticky='w')
+        self.option_frame_1_word_rating_combobox.grid(row=0, column=1, pady=5, sticky='w')
+        self.option_frame_1_count_in_percent_label.grid(row=1, column=0, pady=5, sticky='w')
+        self.option_frame_1_count_in_percent_checkbox.grid(row=1, column=1, pady=5, sticky='w')
 
         self.option_frame_1.pack()
 
     def create_option_grid_2(self):
         self.option_frame_2 = Frame(self.top_frame)
 
-        keyword_in_percent_label = Label(
+        self.option_frame_2_keyword_in_percent_label = Label(
             self.option_frame_2,
             text="Keyword count in percent:"
         )
-        keyword_count_in_percent_var = tk.IntVar()
-        keyword_count_in_percent_checkbox = Checkbutton(
+        self.option_frame_2_keyword_count_in_percent_var = tk.IntVar()
+        self.option_frame_2_keyword_count_in_percent_checkbox = Checkbutton(
             self.option_frame_2,
-            variable=keyword_count_in_percent_var,
+            variable=self.option_frame_2_keyword_count_in_percent_var,
         )
-        company_in_percent_label = Label(
+        self.option_frame_2_company_in_percent_label = Label(
             self.option_frame_2,
             text="Company description count in percent:"
         )
-        company_description_count_in_percent_var = tk.IntVar()
-        company_description_count_in_percent_checkbox = Checkbutton(
+        self.option_frame_2_company_description_count_in_percent_var = tk.IntVar()
+        self.option_frame_2_company_description_count_in_percent_checkbox = Checkbutton(
             self.option_frame_2,
-            variable=company_description_count_in_percent_var
+            variable=self.option_frame_2_company_description_count_in_percent_var
         )
 
-        keyword_in_percent_label.grid(row=0, column=0, pady=5, sticky='w')
-        keyword_count_in_percent_checkbox.grid(row=0, column=1, pady=5, sticky='w')
-        company_in_percent_label.grid(row=1, column=0, pady=5, sticky='w')
-        company_description_count_in_percent_checkbox.grid(row=1, column=1, pady=5, sticky='w')
+        self.option_frame_2_keyword_in_percent_label.grid(row=0, column=0, pady=5, sticky='w')
+        self.option_frame_2_keyword_count_in_percent_checkbox.grid(row=0, column=1, pady=5, sticky='w')
+        self.option_frame_2_company_in_percent_label.grid(row=1, column=0, pady=5, sticky='w')
+        self.option_frame_2_company_description_count_in_percent_checkbox.grid(row=1, column=1, pady=5, sticky='w')
         self.option_frame_2.pack()
 
     def create_option_grid_3(self):
         self.option_frame_3 = Frame(self.top_frame)
 
-        info_text = Label(
+        self.option_frame_3_info_text = Label(
             self.option_frame_3,
             text="To be implemented"
         )
 
-        info_text.grid(row=0, column=0, pady=5)
+        self.option_frame_3_info_text.grid(row=0, column=0, pady=5)
 
         self.option_frame_3.pack()
 
     def update_options_visibility(self, event):
-        selected_option = self.dropdown_var.get()
+        selected_option = self.top_frame_dropdown_var.get()
 
         if selected_option == self.DROPDOWN_OPTIONS[0]:
             self.show_option_grid(self.option_frame_1)
@@ -210,12 +210,18 @@ class GUI(tk.Tk):
                 frame.pack_forget()
 
     def query_selected_option(self):
-        selected_option = self.dropdown_var.get()
-        query_method_name = f"query_{selected_option.lower().replace('-', '_')}"
-        query_method = getattr(self, query_method_name, None)
+        selected_option = self.top_frame_dropdown_var.get()
 
-        if query_method:
-            query_method()
+        if selected_option == self.DROPDOWN_OPTIONS[0]:
+            self.outputter.company_layer(
+                self.option_frame_1_word_rating_combobox.get(),
+                3,  # TODO: Turn variable
+                self.option_frame_1_count_in_percent_checkbox.get()
+            )
+        elif selected_option == self.DROPDOWN_OPTIONS[1]:
+            self.show_option_grid(self.option_frame_2)
+        elif selected_option == self.DROPDOWN_OPTIONS[2]:
+            self.show_option_grid(self.option_frame_3)
         else:
             print("Invalid option selected")
 
@@ -224,6 +230,6 @@ class GUI(tk.Tk):
         file_paths = ('/home/bluealias/Downloads/Beispieldaten.xlsx',)
 
         self.importer.import_files(file_paths)
-        self.data_state_label_text.set('File(s) loaded')
+        self.bottom_frame_info_label_text.set('File(s) loaded')
         self.dataContainer.analyse(self.excluded_words)
-        self.data_state_label_text.set('File(s) loaded and analysed')
+        self.bottom_frame_info_label_text.set('File(s) loaded and analysed')
