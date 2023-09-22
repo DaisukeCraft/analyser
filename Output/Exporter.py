@@ -2,7 +2,7 @@ from Backend import DataContainer
 import heapq
 import pandas as pd
 
-from Frontend import GUI
+from Global import KEYWORD_DETERMINATION_OPTIONS, sort_dict_by_value
 
 
 class Exporter:
@@ -16,36 +16,23 @@ class Exporter:
             'Description Word Count': [],
         }
 
-        print(word_rating_type)
+        for nr in range(key_word_count):
+            print_data[f"Top-{nr+1} word"] = []
+            print_data[f"Top-{nr+1} word count"] = []
+            nr += 1
 
-        if word_rating_type == GUI.KEYWORD_DETERMINATION_OPTIONS[0]:
-            top_words = sorted(
-                {key: value.quantity.percent if in_percent else value.quantity.count for key, value in
-                 self.data_container.general_layer.of_word}
-            )[:key_word_count]
-
-        if word_rating_type == GUI.KEYWORD_DETERMINATION_OPTIONS[1]:
-            top_words = sorted(
-                {key: value.frequency.percent if in_percent else value.frequency.count for key, value in
-                 self.data_container.general_layer.of_word}
-            )[:key_word_count]
-
-        for i in range(key_word_count):
-
-
-            print(type(top_words))
-
-            print_data[f"Top word {i}"] = top_words
-            print_data[f"Top {i} count"] = self.data_container.general_layer.of_word[top_words]
-
-        df = pd.DataFrame({
-            "Excluded Words:": [','.join(self.data_container.excluded_words)],
-        })
-        excluded_words = pd.Series("Excluded Words:", self.data_container.excluded_words)
-        head = pd.Series(["Company Name", "Business Description", "Description Word Count"])
-        # Implement logic to output company-layer data here
         print("Outputting company-layer data")
         print(print_data)
+
+    def create_word_rating(self, in_percent, word_rating_type):
+        top_words = {}
+        for key, value in self.data_container.general_layer.of_word.items():
+            if word_rating_type == KEYWORD_DETERMINATION_OPTIONS[0]:
+                top_words[key] = value.quantity.percent if in_percent else value.quantity.count
+            if word_rating_type == KEYWORD_DETERMINATION_OPTIONS[1]:
+                top_words[key] = value.frequency.percent if in_percent else value.frequency.count
+        top_words = sort_dict_by_value(top_words)
+        return top_words
 
     def generic_layer(self):
         # Implement logic to output generic-layer data here

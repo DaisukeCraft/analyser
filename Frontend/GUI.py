@@ -5,6 +5,7 @@ from tkinter import filedialog
 import pandas as pd
 from tqdm import tqdm
 
+from Global import DROPDOWN_OPTIONS, KEYWORD_DETERMINATION_OPTIONS
 from Backend import DataContainer
 from Output import Exporter
 from Input import Importer
@@ -12,9 +13,6 @@ from . import Separator, Frame, Label, Button, Combobox, Checkbutton
 
 
 class GUI(tk.Tk):
-    DROPDOWN_OPTIONS = ["Company-Layer", "Generic-Layer", "Cluster-Layer"]
-    KEYWORD_DETERMINATION_OPTIONS = ["Quantity", "Occurrence"]
-
     def __init__(self, excluded_words: list[str] = None):
         super().__init__()
         self.excluded_words: list[str] = excluded_words
@@ -27,7 +25,7 @@ class GUI(tk.Tk):
 
         self.update_options_visibility(None)
 
-        for option in self.DROPDOWN_OPTIONS:
+        for option in DROPDOWN_OPTIONS:
             query_method_name = f"query_{option.lower().replace('-', '_')}"
             query_method = self.create_query_method(option)
             setattr(self, query_method_name, query_method)
@@ -77,12 +75,12 @@ class GUI(tk.Tk):
         self.top_frame = Frame(self)
 
         self.top_frame_dropdown_var = tk.StringVar(
-            value=self.DROPDOWN_OPTIONS[0]
+            value=DROPDOWN_OPTIONS[0]
         )
         self.top_frame_dropdown = Combobox(
             self.top_frame,
             textvariable=self.top_frame_dropdown_var,
-            values=self.DROPDOWN_OPTIONS,
+            values=DROPDOWN_OPTIONS,
         )
         self.top_frame_dropdown.bind(
             "<<ComboboxSelected>>",
@@ -118,12 +116,12 @@ class GUI(tk.Tk):
             text="Word rating based on:"
         )
         self.option_frame_1_word_rating_var = tk.StringVar(
-            value=self.KEYWORD_DETERMINATION_OPTIONS[0]
+            value=KEYWORD_DETERMINATION_OPTIONS[0]
         )
         self.option_frame_1_word_rating_combobox = Combobox(
             self.option_frame_1,
             textvariable=self.option_frame_1_word_rating_var,
-            values=self.KEYWORD_DETERMINATION_OPTIONS,
+            values=KEYWORD_DETERMINATION_OPTIONS,
         )
         self.option_frame_1_count_in_percent_label = Label(
             self.option_frame_1,
@@ -185,11 +183,11 @@ class GUI(tk.Tk):
     def update_options_visibility(self, event):
         selected_option = self.top_frame_dropdown_var.get()
 
-        if selected_option == self.DROPDOWN_OPTIONS[0]:
+        if selected_option == DROPDOWN_OPTIONS[0]:
             self.show_option_grid(self.option_frame_1)
-        elif selected_option == self.DROPDOWN_OPTIONS[1]:
+        elif selected_option == DROPDOWN_OPTIONS[1]:
             self.show_option_grid(self.option_frame_2)
-        elif selected_option == self.DROPDOWN_OPTIONS[2]:
+        elif selected_option == DROPDOWN_OPTIONS[2]:
             self.show_option_grid(self.option_frame_3)
         else:
             self.hide_option_grids()
@@ -212,15 +210,15 @@ class GUI(tk.Tk):
     def query_selected_option(self):
         selected_option = self.top_frame_dropdown_var.get()
 
-        if selected_option == self.DROPDOWN_OPTIONS[0]:
+        if selected_option == DROPDOWN_OPTIONS[0]:
             self.outputter.company_layer(
                 self.option_frame_1_word_rating_combobox.get(),
                 3,  # TODO: Turn variable
-                self.option_frame_1_count_in_percent_checkbox.get()
+                self.option_frame_1_count_in_percent_var.get()
             )
-        elif selected_option == self.DROPDOWN_OPTIONS[1]:
+        elif selected_option == DROPDOWN_OPTIONS[1]:
             self.show_option_grid(self.option_frame_2)
-        elif selected_option == self.DROPDOWN_OPTIONS[2]:
+        elif selected_option == DROPDOWN_OPTIONS[2]:
             self.show_option_grid(self.option_frame_3)
         else:
             print("Invalid option selected")
