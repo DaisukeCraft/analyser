@@ -208,6 +208,10 @@ class GUI(tk.Tk):
                 frame.pack_forget()
 
     def query_selected_option(self):
+        if not self.file_loaded:
+            print("No file has been loaded yet")
+            return
+
         selected_option = self.top_frame_dropdown_var.get()
 
         if selected_option == DROPDOWN_OPTIONS[0]:
@@ -225,9 +229,9 @@ class GUI(tk.Tk):
 
     def trigger_import(self):
         file_paths = filedialog.askopenfilenames(filetypes=[("Excel files", "*.xlsx")])
-        file_paths = ('/home/bluealias/Downloads/Beispieldaten.xlsx',)
 
         self.importer.import_files(file_paths)
         self.bottom_frame_info_label_text.set('File(s) loaded')
         self.dataContainer.analyse(self.excluded_words)
         self.bottom_frame_info_label_text.set('File(s) loaded and analysed')
+        self.file_loaded = True

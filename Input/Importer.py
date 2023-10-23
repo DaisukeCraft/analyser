@@ -7,8 +7,8 @@ import string
 class Importer:
     BUSINESS_DESCRIPTION = 'Business Description'
 
-    def __init__(self, dataContainer: DataContainer):
-        self.dataContainer: DataContainer = dataContainer
+    def __init__(self, data_container: DataContainer):
+        self.dataContainer: DataContainer = data_container
 
     def import_files(self, file_paths: Tuple[str]):
         if not file_paths:
@@ -16,6 +16,9 @@ class Importer:
 
         for path in file_paths:
             data = pd.read_excel(path, header=2, index_col=0).to_dict()
+            if self.BUSINESS_DESCRIPTION not in data:
+                raise KeyError("Wrong file format")
+
             self.extract_companies(data[self.BUSINESS_DESCRIPTION])
 
     def extract_companies(self, data: dict):

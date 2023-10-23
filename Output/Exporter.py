@@ -22,7 +22,7 @@ class Exporter:
             nr += 1
 
         print("Outputting company-layer data")
-        print(print_data)
+        self.print_dataframe(pd.DataFrame.from_dict(print_data))
 
     def create_word_rating(self, in_percent, word_rating_type):
         top_words = {}
@@ -42,4 +42,5 @@ class Exporter:
         # Implement logic to output cluster-layer data here
         print("Outputting cluster-layer data")
 
-    # You can add more output methods as needed
+    def print_dataframe(self, dataframe: pd.DataFrame):
+        dataframe.to_excel("Output.xlsx")
