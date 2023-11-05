@@ -1,11 +1,11 @@
 from pathlib import Path
 from typing import Dict, List
 
-from Backend import DataContainer
+from src.Backend import DataContainer
 import numpy as np
 import pandas as pd
 
-from Global import KEYWORD_DETERMINATION_OPTIONS
+from src.Global import KEYWORD_DETERMINATION_OPTIONS
 
 
 class Exporter:
@@ -89,15 +89,19 @@ class Exporter:
                                 key=lambda item: item[1].quantity.count, reverse=True)
 
         keywords = [stat[0] for stat in word_tier_list]
-        count = [str(stat[1].quantity.percent) + key_word_print_suffix for stat in word_tier_list] if key_word_in_percent else [stat[1].quantity.count for stat in word_tier_list]
-        contained = [str(stat[1].frequency.percent) + company_print_suffix for stat in word_tier_list] if company_in_percent else [stat[1].frequency.count for stat in word_tier_list]
+        count = [str(stat[1].quantity.percent) + key_word_print_suffix for stat in
+                 word_tier_list] if key_word_in_percent else [stat[1].quantity.count for stat in word_tier_list]
+        contained = [str(stat[1].frequency.percent) + company_print_suffix for stat in
+                     word_tier_list] if company_in_percent else [stat[1].frequency.count for stat in word_tier_list]
 
         print_data = {
             'Keyword': keywords,
             'Percent' if key_word_in_percent else 'Count': count,
             'Used in Descriptions': contained,
-            'Max*': [max([company.of_word[word].count if word in company.of_word else 0 for company in self.data_container.general_layer.company_stack.companies]) for word in keywords],
-            'Min*': [min([company.of_word[word].count if word in company.of_word else 0 for company in self.data_container.general_layer.company_stack.companies]) for word in keywords],
+            'Max*': [max([company.of_word[word].count if word in company.of_word else 0 for company in
+                          self.data_container.general_layer.company_stack.companies]) for word in keywords],
+            'Min*': [min([company.of_word[word].count if word in company.of_word else 0 for company in
+                          self.data_container.general_layer.company_stack.companies]) for word in keywords],
         }
 
         return print_data

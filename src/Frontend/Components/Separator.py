@@ -1,5 +1,5 @@
 import tkinter as tk
-from Global.Colours import BUTTON_COLOUR
+from src.Global.Colours import BUTTON_COLOUR
 
 
 class Separator(tk.Frame):

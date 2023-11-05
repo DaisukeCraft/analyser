@@ -1,8 +1,8 @@
 from functools import reduce
 from typing import List, Optional, Dict
-from Backend.DataType import *
-from Backend.Attribute import Stack
-from Backend.Layer import Company
+from src.Backend.DataType import Statistics, Statistic
+from src.Backend.Attribute import Stack
+from src.Backend.Layer import Company
 
 
 class General:

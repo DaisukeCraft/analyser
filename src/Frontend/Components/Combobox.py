@@ -1,5 +1,5 @@
 from tkinter import ttk
-from Global.Colours import *
+from src.Global.Colours import *
 
 
 class Combobox(ttk.Combobox):

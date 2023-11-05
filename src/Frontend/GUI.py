@@ -1,10 +1,10 @@
 import tkinter as tk
 from tkinter import filedialog
 
-from Global import DROPDOWN_OPTIONS, KEYWORD_DETERMINATION_OPTIONS, validate_int_input
-from Backend import DataContainer
-from Output import Exporter
-from Input import Importer
+from src.Global import DROPDOWN_OPTIONS, KEYWORD_DETERMINATION_OPTIONS, validate_int_input
+from src.Backend import DataContainer
+from src.Output import Exporter
+from src.Input import Importer
 from . import Separator, Frame, Label, Button, Combobox, Checkbutton
 
 
@@ -251,7 +251,7 @@ class GUI(tk.Tk):
         file_paths = filedialog.askopenfilenames(filetypes=[("Excel files", "*.xlsx")])
 
         self.importer.import_files(file_paths)
-        self.bottom_frame_info_label_text.set('File(s) loaded')
+        self.bottom_frame_info_label_text.set('Analysing file(s)...')
         self.dataContainer.analyse(self.excluded_words)
         self.bottom_frame_info_label_text.set('File(s) loaded and analysed')
         self.file_loaded = True

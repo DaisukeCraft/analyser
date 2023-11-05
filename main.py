@@ -1,4 +1,4 @@
-from Frontend import GUI
+from src.Frontend import GUI
 from dotenv import load_dotenv
 import os
 

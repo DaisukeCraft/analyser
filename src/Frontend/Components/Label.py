@@ -1,15 +1,12 @@
 import tkinter as tk
-from Global.Colours import *
+from src.Global.Colours import *
 
 
-class Checkbutton(tk.Checkbutton):
+class Label(tk.Label):
     def __init__(self, master=None, cnf={}, **kw):
         super().__init__(master, cnf, **kw)
         self.configure(
             background=BACKGROUND_COLOUR,
-            activebackground=BACKGROUND_COLOUR,
-            foreground=TEXT_COLOUR,
-            activeforeground=TEXT_COLOUR,
             relief='flat',
-            borderwidth=0,
+            foreground=TEXT_COLOUR
         )

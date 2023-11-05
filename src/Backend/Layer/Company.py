@@ -1,6 +1,6 @@
 from typing import List, Optional, Dict
-from Backend.Attribute import Description
-from Backend.DataType import Statistic
+from src.Backend.Attribute import Description
+from src.Backend.DataType import Statistic
 
 
 class Company:

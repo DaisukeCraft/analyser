@@ -1,5 +1,5 @@
 import tkinter as tk
-from Global.Colours import BACKGROUND_COLOUR
+from src.Global.Colours import BACKGROUND_COLOUR
 
 
 class Frame(tk.Frame):
