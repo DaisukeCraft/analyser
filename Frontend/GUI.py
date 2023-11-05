@@ -237,7 +237,11 @@ class GUI(tk.Tk):
             )
             self.bottom_frame_info_label_text.set('Company Layer exported')
         elif selected_option == DROPDOWN_OPTIONS[1]:
-            self.show_option_grid(self.option_frame_2)
+            self.outputter.export_generic_layer(
+                self.option_frame_2_keyword_count_in_percent_var.get(),
+                self.option_frame_2_company_description_count_in_percent_var.get()
+            )
+            self.bottom_frame_info_label_text.set('Generic Layer exported')
         elif selected_option == DROPDOWN_OPTIONS[2]:
             self.show_option_grid(self.option_frame_3)
         else:

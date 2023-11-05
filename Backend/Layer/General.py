@@ -17,10 +17,11 @@ class General:
                 company.analyse(excluded_words)
 
             for word, stats in company.of_word.items():
-                self.of_word[word] = Statistics(
-                    Statistic(None, None),
-                    Statistic(None, None)
-                )
+                if not word in self.of_word:
+                    self.of_word[word] = Statistics(
+                        Statistic(None, None),
+                        Statistic(None, None)
+                    )
 
                 self.of_word[word].quantity.count += stats.count
                 self.of_word[word].frequency.count += 1
