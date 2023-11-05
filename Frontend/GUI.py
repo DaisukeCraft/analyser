@@ -1,11 +1,7 @@
-import string
 import tkinter as tk
 from tkinter import filedialog
 
-import pandas as pd
-from tqdm import tqdm
-
-from Global import DROPDOWN_OPTIONS, KEYWORD_DETERMINATION_OPTIONS
+from Global import DROPDOWN_OPTIONS, KEYWORD_DETERMINATION_OPTIONS, validate_int_input
 from Backend import DataContainer
 from Output import Exporter
 from Input import Importer
@@ -32,6 +28,8 @@ class GUI(tk.Tk):
 
     def create_display(self):
         self.create_root_frame(title='Word Analysis Tool')
+
+        self.validate_int_input_cmd = self.register(validate_int_input)
 
         self.create_top_frame()
         self.separator = Separator(self)
@@ -111,6 +109,20 @@ class GUI(tk.Tk):
     def create_option_grid_1(self):
         self.option_frame_1 = Frame(self.top_frame)
 
+        self.option_frame_1_key_word_count_label = Label(
+            self.option_frame_1,
+            text="Key word amount:"
+        )
+        self.option_frame_1_key_word_count_int_var = tk.IntVar(
+            value=3
+        )
+        self.option_frame_1_key_word_count_entry = tk.Entry(
+            self.option_frame_1,
+            textvariable=self.option_frame_1_key_word_count_int_var,
+            validate='key',
+            validatecommand=(self.validate_int_input_cmd, "%S", "%P")
+        )
+
         self.option_frame_1_word_rating_label = Label(
             self.option_frame_1,
             text="Word rating based on:"
@@ -123,6 +135,7 @@ class GUI(tk.Tk):
             textvariable=self.option_frame_1_word_rating_var,
             values=KEYWORD_DETERMINATION_OPTIONS,
         )
+
         self.option_frame_1_count_in_percent_label = Label(
             self.option_frame_1,
             text="Count in percent:"
@@ -133,10 +146,12 @@ class GUI(tk.Tk):
             variable=self.option_frame_1_count_in_percent_var
         )
 
-        self.option_frame_1_word_rating_label.grid(row=0, column=0, pady=5, sticky='w')
-        self.option_frame_1_word_rating_combobox.grid(row=0, column=1, pady=5, sticky='w')
-        self.option_frame_1_count_in_percent_label.grid(row=1, column=0, pady=5, sticky='w')
-        self.option_frame_1_count_in_percent_checkbox.grid(row=1, column=1, pady=5, sticky='w')
+        self.option_frame_1_key_word_count_label.grid(row=0, column=0, pady=5, sticky='w')
+        self.option_frame_1_key_word_count_entry.grid(row=0, column=1, pady=5, sticky='w')
+        self.option_frame_1_word_rating_label.grid(row=1, column=0, pady=5, sticky='w')
+        self.option_frame_1_word_rating_combobox.grid(row=1, column=1, pady=5, sticky='w')
+        self.option_frame_1_count_in_percent_label.grid(row=2, column=0, pady=5, sticky='w')
+        self.option_frame_1_count_in_percent_checkbox.grid(row=2, column=1, pady=5, sticky='w')
 
         self.option_frame_1.pack()
 
@@ -215,11 +230,12 @@ class GUI(tk.Tk):
         selected_option = self.top_frame_dropdown_var.get()
 
         if selected_option == DROPDOWN_OPTIONS[0]:
-            self.outputter.company_layer(
+            self.outputter.export_company_layer(
+                self.option_frame_1_key_word_count_int_var.get(),
                 self.option_frame_1_word_rating_combobox.get(),
-                3,  # TODO: Turn variable
                 self.option_frame_1_count_in_percent_var.get()
             )
+            self.bottom_frame_info_label_text.set('Company Layer exported')
         elif selected_option == DROPDOWN_OPTIONS[1]:
             self.show_option_grid(self.option_frame_2)
         elif selected_option == DROPDOWN_OPTIONS[2]:
