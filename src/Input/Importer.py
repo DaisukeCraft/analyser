@@ -6,6 +6,7 @@ import string
 
 class Importer:
     BUSINESS_DESCRIPTION = 'Business Description'
+    COMPANY_NAME = 'Company Name'
 
     def __init__(self, data_container: DataContainer):
         self.dataContainer: DataContainer = data_container
@@ -15,7 +16,7 @@ class Importer:
             raise FileNotFoundError("No file selected")
 
         for path in file_paths:
-            data = pd.read_excel(path, header=2, index_col=0).to_dict()
+            data = pd.read_excel(path, header=0, index_col=0).to_dict()
             if self.BUSINESS_DESCRIPTION not in data:
                 raise KeyError("Wrong file format")
 

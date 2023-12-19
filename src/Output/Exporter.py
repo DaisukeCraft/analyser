@@ -96,8 +96,8 @@ class Exporter:
 
         print_data = {
             'Keyword': keywords,
-            'Percent' if key_word_in_percent else 'Count': count,
-            'Used in Descriptions': contained,
+            'Percent' if key_word_in_percent else 'Count (Quantity)': count,
+            'Used in Descriptions (Occurrence)': contained,
             'Max*': [max([company.of_word[word].count if word in company.of_word else 0 for company in
                           self.data_container.general_layer.company_stack.companies]) for word in keywords],
             'Min*': [min([company.of_word[word].count if word in company.of_word else 0 for company in

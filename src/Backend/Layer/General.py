@@ -17,7 +17,7 @@ class General:
                 company.analyse(excluded_words)
 
             for word, stats in company.of_word.items():
-                if not word in self.of_word:
+                if word not in self.of_word:
                     self.of_word[word] = Statistics(
                         Statistic(None, None),
                         Statistic(None, None)
@@ -42,3 +42,12 @@ class General:
                 self.of_word[word].frequency.count,
                 total_stack_size
             )
+
+    def exclude_irrelevant_words(self):
+        to_be_deleted = []
+        for word, value in self.of_word.items():
+            if value.frequency.percent >= 100:
+                to_be_deleted.append(word)
+
+        for word in to_be_deleted:
+            del self.of_word[word]

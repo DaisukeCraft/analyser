@@ -31,15 +31,15 @@ class GUI(tk.Tk):
 
         self.validate_int_input_cmd = self.register(validate_int_input)
 
-        self.create_top_frame()
+        self.create_export_control_frame()
         self.separator = Separator(self)
-        self.create_bottom_frame()
+        self.create_file_control_frame()
 
-        self.top_frame.pack(fill="both", expand=True, side=tk.TOP)
+        self.file_control_frame.pack(fill="both", side=tk.TOP)
         self.separator.pack(fill="x")
-        self.bottom_frame.pack(fill="both", side=tk.BOTTOM)
+        self.export_control_frame.pack(fill="both", expand=True, side=tk.BOTTOM)
 
-    def create_top_frame_pages(self):
+    def create_export_control_frame_pages(self):
         self.create_option_grid_1()
         self.create_option_grid_2()
         self.create_option_grid_3()
@@ -52,16 +52,16 @@ class GUI(tk.Tk):
         self.grid_rowconfigure(0, weight=10)
         self.grid_rowconfigure(1, weight=1)
 
-    def create_bottom_frame(self):
-        self.bottom_frame = Frame(self)
+    def create_file_control_frame(self):
+        self.file_control_frame = Frame(self)
 
         self.bottom_frame_info_label_text = tk.StringVar(value='No files loaded')
         self.bottom_frame_info_label = Label(
-            self.bottom_frame,
+            self.file_control_frame,
             textvariable=self.bottom_frame_info_label_text
         )
         self.bottom_frame_open_file_button = Button(
-            self.bottom_frame,
+            self.file_control_frame,
             text="Open CSV Files",
             command=self.trigger_import
         )
@@ -69,14 +69,14 @@ class GUI(tk.Tk):
         self.bottom_frame_info_label.pack(pady=10)
         self.bottom_frame_open_file_button.pack(pady=10)
 
-    def create_top_frame(self):
-        self.top_frame = Frame(self)
+    def create_export_control_frame(self):
+        self.export_control_frame = Frame(self)
 
         self.top_frame_dropdown_var = tk.StringVar(
             value=DROPDOWN_OPTIONS[0]
         )
         self.top_frame_dropdown = Combobox(
-            self.top_frame,
+            self.export_control_frame,
             textvariable=self.top_frame_dropdown_var,
             values=DROPDOWN_OPTIONS,
         )
@@ -84,15 +84,21 @@ class GUI(tk.Tk):
             "<<ComboboxSelected>>",
             self.update_options_visibility
         )
-        self.top_frame_query_button = Button(
-            self.top_frame,
-            text="Run",
+        self.top_frame_export_button = Button(
+            self.export_control_frame,
+            text="Export",
             command=self.query_selected_option,
+        )
+        self.top_frame_export_all_button = Button(
+            self.export_control_frame,
+            text="Export All",
+            command=self.query_all_options,
         )
 
         self.top_frame_dropdown.pack(pady=(20, 60), side=tk.TOP)
-        self.create_top_frame_pages()
-        self.top_frame_query_button.pack(pady=10, side=tk.BOTTOM)
+        self.create_export_control_frame_pages()
+        self.top_frame_export_all_button.pack(pady=10, side=tk.BOTTOM)
+        self.top_frame_export_button.pack(pady=10, side=tk.BOTTOM)
 
     def create_query_method(self, option):
         def query_method():
@@ -107,7 +113,7 @@ class GUI(tk.Tk):
         return query_method
 
     def create_option_grid_1(self):
-        self.option_frame_1 = Frame(self.top_frame)
+        self.option_frame_1 = Frame(self.export_control_frame)
 
         self.option_frame_1_key_word_count_label = Label(
             self.option_frame_1,
@@ -156,7 +162,7 @@ class GUI(tk.Tk):
         self.option_frame_1.pack()
 
     def create_option_grid_2(self):
-        self.option_frame_2 = Frame(self.top_frame)
+        self.option_frame_2 = Frame(self.export_control_frame)
 
         self.option_frame_2_keyword_in_percent_label = Label(
             self.option_frame_2,
@@ -184,7 +190,7 @@ class GUI(tk.Tk):
         self.option_frame_2.pack()
 
     def create_option_grid_3(self):
-        self.option_frame_3 = Frame(self.top_frame)
+        self.option_frame_3 = Frame(self.export_control_frame)
 
         self.option_frame_3_info_text = Label(
             self.option_frame_3,
@@ -246,6 +252,27 @@ class GUI(tk.Tk):
             self.show_option_grid(self.option_frame_3)
         else:
             print("Invalid option selected")
+
+    def query_all_options(self):
+        if not self.file_loaded:
+            print("No file has been loaded yet")
+            return
+
+        # Execute option 1
+        self.outputter.export_company_layer(
+            self.option_frame_1_key_word_count_int_var.get(),
+            self.option_frame_1_word_rating_combobox.get(),
+            self.option_frame_1_count_in_percent_var.get()
+        )
+
+        # Execute option 2
+        self.outputter.export_generic_layer(
+            self.option_frame_2_keyword_count_in_percent_var.get(),
+            self.option_frame_2_company_description_count_in_percent_var.get()
+        )
+
+        # Update status message
+        self.bottom_frame_info_label_text.set('All layers exported')
 
     def trigger_import(self):
         file_paths = filedialog.askopenfilenames(filetypes=[("Excel files", "*.xlsx")])

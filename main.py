@@ -7,7 +7,7 @@ if __name__ == "__main__":
     # EXCLUDE: words that should not be analysed
 
     app = GUI(
-        excluded_words=os.getenv('EXCLUDE').split(',')
+        excluded_words=os.getenv('GLOBAL_EXCLUDE').split(',') + os.getenv('EXCLUDE').split(',')
     )
 
     app.mainloop()
