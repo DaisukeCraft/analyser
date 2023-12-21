@@ -1,11 +1,21 @@
 import tkinter as tk
 from tkinter import filedialog
 
-from src.Global import DROPDOWN_OPTIONS, KEYWORD_DETERMINATION_OPTIONS, validate_int_input
+from src.Global import (DROPDOWN_OPTIONS,
+                        KEYWORD_DETERMINATION_OPTIONS,
+                        GENERIC_LAYER,
+                        COMPANY_LAYER,
+                        CLUSTER_LAYER,
+                        validate_int_input)
 from src.Backend import DataContainer
 from src.Output import Exporter
 from src.Input import Importer
-from . import Separator, Frame, Label, Button, Combobox, Checkbutton
+from . import (Separator,
+               Frame,
+               Label,
+               Button,
+               Combobox,
+               Checkbutton)
 
 
 class GUI(tk.Tk):
@@ -40,9 +50,9 @@ class GUI(tk.Tk):
         self.export_control_frame.pack(fill="both", expand=True, side=tk.BOTTOM)
 
     def create_export_control_frame_pages(self):
-        self.create_option_grid_1()
-        self.create_option_grid_2()
-        self.create_option_grid_3()
+        self.create_option_grid_company()
+        self.create_option_grid_generic()
+        self.create_option_grid_cluster()
 
     def create_root_frame(self, title: str):
         self.title(title)
@@ -112,104 +122,104 @@ class GUI(tk.Tk):
 
         return query_method
 
-    def create_option_grid_1(self):
-        self.option_frame_1 = Frame(self.export_control_frame)
+    def create_option_grid_company(self):
+        self.option_frame_company = Frame(self.export_control_frame)
 
-        self.option_frame_1_key_word_count_label = Label(
-            self.option_frame_1,
+        self.option_frame_company_key_word_count_label = Label(
+            self.option_frame_company,
             text="Key word amount:"
         )
-        self.option_frame_1_key_word_count_int_var = tk.IntVar(
+        self.option_frame_company_key_word_count_int_var = tk.IntVar(
             value=3
         )
-        self.option_frame_1_key_word_count_entry = tk.Entry(
-            self.option_frame_1,
-            textvariable=self.option_frame_1_key_word_count_int_var,
+        self.option_frame_company_key_word_count_entry = tk.Entry(
+            self.option_frame_company,
+            textvariable=self.option_frame_company_key_word_count_int_var,
             validate='key',
             validatecommand=(self.validate_int_input_cmd, "%S", "%P")
         )
 
-        self.option_frame_1_word_rating_label = Label(
-            self.option_frame_1,
+        self.option_frame_company_word_rating_label = Label(
+            self.option_frame_company,
             text="Word rating based on:"
         )
-        self.option_frame_1_word_rating_var = tk.StringVar(
+        self.option_frame_company_word_rating_var = tk.StringVar(
             value=KEYWORD_DETERMINATION_OPTIONS[0]
         )
-        self.option_frame_1_word_rating_combobox = Combobox(
-            self.option_frame_1,
-            textvariable=self.option_frame_1_word_rating_var,
+        self.option_frame_company_word_rating_combobox = Combobox(
+            self.option_frame_company,
+            textvariable=self.option_frame_company_word_rating_var,
             values=KEYWORD_DETERMINATION_OPTIONS,
         )
 
-        self.option_frame_1_count_in_percent_label = Label(
-            self.option_frame_1,
+        self.option_frame_company_count_in_percent_label = Label(
+            self.option_frame_company,
             text="Count in percent:"
         )
-        self.option_frame_1_count_in_percent_var = tk.IntVar()
-        self.option_frame_1_count_in_percent_checkbox = Checkbutton(
-            self.option_frame_1,
-            variable=self.option_frame_1_count_in_percent_var
+        self.option_frame_company_count_in_percent_var = tk.IntVar()
+        self.option_frame_company_count_in_percent_checkbox = Checkbutton(
+            self.option_frame_company,
+            variable=self.option_frame_company_count_in_percent_var
         )
 
-        self.option_frame_1_key_word_count_label.grid(row=0, column=0, pady=5, sticky='w')
-        self.option_frame_1_key_word_count_entry.grid(row=0, column=1, pady=5, sticky='w')
-        self.option_frame_1_word_rating_label.grid(row=1, column=0, pady=5, sticky='w')
-        self.option_frame_1_word_rating_combobox.grid(row=1, column=1, pady=5, sticky='w')
-        self.option_frame_1_count_in_percent_label.grid(row=2, column=0, pady=5, sticky='w')
-        self.option_frame_1_count_in_percent_checkbox.grid(row=2, column=1, pady=5, sticky='w')
+        self.option_frame_company_key_word_count_label.grid(row=0, column=0, pady=5, sticky='w')
+        self.option_frame_company_key_word_count_entry.grid(row=0, column=1, pady=5, sticky='w')
+        self.option_frame_company_word_rating_label.grid(row=1, column=0, pady=5, sticky='w')
+        self.option_frame_company_word_rating_combobox.grid(row=1, column=1, pady=5, sticky='w')
+        self.option_frame_company_count_in_percent_label.grid(row=2, column=0, pady=5, sticky='w')
+        self.option_frame_company_count_in_percent_checkbox.grid(row=2, column=1, pady=5, sticky='w')
 
-        self.option_frame_1.pack()
+        self.option_frame_company.pack()
 
-    def create_option_grid_2(self):
-        self.option_frame_2 = Frame(self.export_control_frame)
+    def create_option_grid_generic(self):
+        self.option_frame_generic = Frame(self.export_control_frame)
 
-        self.option_frame_2_keyword_in_percent_label = Label(
-            self.option_frame_2,
+        self.option_frame_generic_keyword_in_percent_label = Label(
+            self.option_frame_generic,
             text="Keyword count in percent:"
         )
-        self.option_frame_2_keyword_count_in_percent_var = tk.IntVar()
-        self.option_frame_2_keyword_count_in_percent_checkbox = Checkbutton(
-            self.option_frame_2,
-            variable=self.option_frame_2_keyword_count_in_percent_var,
+        self.option_frame_generic_keyword_count_in_percent_var = tk.IntVar()
+        self.option_frame_generic_keyword_count_in_percent_checkbox = Checkbutton(
+            self.option_frame_generic,
+            variable=self.option_frame_generic_keyword_count_in_percent_var,
         )
-        self.option_frame_2_company_in_percent_label = Label(
-            self.option_frame_2,
+        self.option_frame_generic_company_in_percent_label = Label(
+            self.option_frame_generic,
             text="Company description count in percent:"
         )
-        self.option_frame_2_company_description_count_in_percent_var = tk.IntVar()
-        self.option_frame_2_company_description_count_in_percent_checkbox = Checkbutton(
-            self.option_frame_2,
-            variable=self.option_frame_2_company_description_count_in_percent_var
+        self.option_frame_generic_company_description_count_in_percent_var = tk.IntVar()
+        self.option_frame_generic_company_description_count_in_percent_checkbox = Checkbutton(
+            self.option_frame_generic,
+            variable=self.option_frame_generic_company_description_count_in_percent_var
         )
 
-        self.option_frame_2_keyword_in_percent_label.grid(row=0, column=0, pady=5, sticky='w')
-        self.option_frame_2_keyword_count_in_percent_checkbox.grid(row=0, column=1, pady=5, sticky='w')
-        self.option_frame_2_company_in_percent_label.grid(row=1, column=0, pady=5, sticky='w')
-        self.option_frame_2_company_description_count_in_percent_checkbox.grid(row=1, column=1, pady=5, sticky='w')
-        self.option_frame_2.pack()
+        self.option_frame_generic_keyword_in_percent_label.grid(row=0, column=0, pady=5, sticky='w')
+        self.option_frame_generic_keyword_count_in_percent_checkbox.grid(row=0, column=1, pady=5, sticky='w')
+        self.option_frame_generic_company_in_percent_label.grid(row=1, column=0, pady=5, sticky='w')
+        self.option_frame_generic_company_description_count_in_percent_checkbox.grid(row=1, column=1, pady=5, sticky='w')
+        self.option_frame_generic.pack()
 
-    def create_option_grid_3(self):
-        self.option_frame_3 = Frame(self.export_control_frame)
+    def create_option_grid_cluster(self):
+        self.option_frame_cluster = Frame(self.export_control_frame)
 
-        self.option_frame_3_info_text = Label(
-            self.option_frame_3,
+        self.option_frame_cluster_info_text = Label(
+            self.option_frame_cluster,
             text="To be implemented"
         )
 
-        self.option_frame_3_info_text.grid(row=0, column=0, pady=5)
+        self.option_frame_cluster_info_text.grid(row=0, column=0, pady=5)
 
-        self.option_frame_3.pack()
+        self.option_frame_cluster.pack()
 
     def update_options_visibility(self, event):
         selected_option = self.top_frame_dropdown_var.get()
 
-        if selected_option == DROPDOWN_OPTIONS[0]:
-            self.show_option_grid(self.option_frame_1)
-        elif selected_option == DROPDOWN_OPTIONS[1]:
-            self.show_option_grid(self.option_frame_2)
-        elif selected_option == DROPDOWN_OPTIONS[2]:
-            self.show_option_grid(self.option_frame_3)
+        if selected_option == COMPANY_LAYER:
+            self.show_option_grid(self.option_frame_company)
+        elif selected_option == GENERIC_LAYER:
+            self.show_option_grid(self.option_frame_generic)
+        elif selected_option == CLUSTER_LAYER:
+            self.show_option_grid(self.option_frame_cluster)
         else:
             self.hide_option_grids()
 
@@ -218,12 +228,12 @@ class GUI(tk.Tk):
         option_frame.pack()
 
     def hide_option_grids(self):
-        self.option_frame_1.pack_forget()
-        self.option_frame_2.pack_forget()
-        self.option_frame_3.pack_forget()
+        self.option_frame_company.pack_forget()
+        self.option_frame_generic.pack_forget()
+        self.option_frame_cluster.pack_forget()
 
     def hide_option_grids_except(self, exception_frame):
-        option_frames = [self.option_frame_1, self.option_frame_2, self.option_frame_3]
+        option_frames = [self.option_frame_company, self.option_frame_generic, self.option_frame_cluster]
         for frame in option_frames:
             if frame != exception_frame:
                 frame.pack_forget()
@@ -235,21 +245,21 @@ class GUI(tk.Tk):
 
         selected_option = self.top_frame_dropdown_var.get()
 
-        if selected_option == DROPDOWN_OPTIONS[0]:
+        if selected_option == COMPANY_LAYER:
             self.outputter.export_company_layer(
-                self.option_frame_1_key_word_count_int_var.get(),
-                self.option_frame_1_word_rating_combobox.get(),
-                self.option_frame_1_count_in_percent_var.get()
+                self.option_frame_company_key_word_count_int_var.get(),
+                self.option_frame_company_word_rating_combobox.get(),
+                self.option_frame_company_count_in_percent_var.get()
             )
             self.bottom_frame_info_label_text.set('Company Layer exported')
-        elif selected_option == DROPDOWN_OPTIONS[1]:
+        elif selected_option == GENERIC_LAYER:
             self.outputter.export_generic_layer(
-                self.option_frame_2_keyword_count_in_percent_var.get(),
-                self.option_frame_2_company_description_count_in_percent_var.get()
+                self.option_frame_generic_keyword_count_in_percent_var.get(),
+                self.option_frame_generic_company_description_count_in_percent_var.get()
             )
             self.bottom_frame_info_label_text.set('Generic Layer exported')
-        elif selected_option == DROPDOWN_OPTIONS[2]:
-            self.show_option_grid(self.option_frame_3)
+        elif selected_option == CLUSTER_LAYER:
+            self.show_option_grid(self.option_frame_cluster)
         else:
             print("Invalid option selected")
 
@@ -260,15 +270,15 @@ class GUI(tk.Tk):
 
         # Execute option 1
         self.outputter.export_company_layer(
-            self.option_frame_1_key_word_count_int_var.get(),
-            self.option_frame_1_word_rating_combobox.get(),
-            self.option_frame_1_count_in_percent_var.get()
+            self.option_frame_company_key_word_count_int_var.get(),
+            self.option_frame_company_word_rating_combobox.get(),
+            self.option_frame_company_count_in_percent_var.get()
         )
 
         # Execute option 2
         self.outputter.export_generic_layer(
-            self.option_frame_2_keyword_count_in_percent_var.get(),
-            self.option_frame_2_company_description_count_in_percent_var.get()
+            self.option_frame_generic_keyword_count_in_percent_var.get(),
+            self.option_frame_generic_company_description_count_in_percent_var.get()
         )
 
         # Update status message
@@ -279,6 +289,11 @@ class GUI(tk.Tk):
 
         self.importer.import_files(file_paths)
         self.bottom_frame_info_label_text.set('Analysing file(s)...')
-        self.dataContainer.analyse(self.excluded_words)
+        self.trigger_analysis()
         self.bottom_frame_info_label_text.set('File(s) loaded and analysed')
         self.file_loaded = True
+
+    def trigger_analysis(self, rerun: bool = True):
+        if rerun:
+            self.trigger_analysis(self.dataContainer.analyse(self.excluded_words))
+

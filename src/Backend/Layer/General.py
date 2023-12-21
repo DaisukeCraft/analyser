@@ -43,6 +43,8 @@ class General:
                 total_stack_size
             )
 
+        self.exclude_irrelevant_words()
+
     def exclude_irrelevant_words(self):
         to_be_deleted = []
         for word, value in self.of_word.items():

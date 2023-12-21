@@ -8,12 +8,14 @@ class DataContainer:
         self.company_stack: List[Company] = []
         self.general_layer: Optional[General] = None
 
-    def analyse(self, excluded_words: Optional[List[str]] = None) -> None:
+    def analyse(self, excluded_words: Optional[List[str]] = None) -> bool:
         if len(self.company_stack) < 1:
             raise IndexError('No data to analyse')
 
         self.general_layer = General(self.company_stack)
         self.general_layer.analyse(excluded_words)
+
+        return False
 
     def add_company(self, abbreviation: str, name: str, description: List[str]) -> None:
         self.company_stack.append(

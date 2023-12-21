@@ -50,6 +50,8 @@ class Exporter:
         print_data = {
                          'Company Name': [company.name for company in
                                           self.data_container.general_layer.company_stack.companies],
+                         'Company Abbreviation': [company.abbreviation for company in
+                                                  self.data_container.general_layer.company_stack.companies],
                          'Business Description': [" ".join(company.description.words) for company in
                                                   self.data_container.general_layer.company_stack.companies],
                          'Description Word Count': [company.description.length for company in

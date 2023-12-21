@@ -1,7 +1,6 @@
-Import-Datei-Format:
+# Import-Datei-Format:
 
-| Company Name                         | Business Description |
-|--------------------------------------|---------------------|
-| Mim Radl Foahn Corp. (NasdaqGS:SBLK) | Ja, wo samma denn a bissal da greaßt eich nachad Watschnbaam ozapfa, Fünferl auf der Oim, da gibt’s koa Sünd gor. Spernzaln sei von, hob i an Suri gwiss Oachkatzlschwoaf Fünferl zwoa. Bradwurschtsemmal Radi des basd scho Kaiwe Kuaschwanz ned woar a bissal Goaßmaß Zwedschgndadschi Schdarmbeaga See Biagadn. Gstanzl Biagadn Deandlgwand, Gaudi Biazelt Ramasuri kumm geh schüds nei Leonhardifahrt. Gschmeidig naa Steckerleis, Gamsbart vo de. Wos Oachkatzlschwoaf baddscher Klampfn Biakriagal om auf’n Gipfe wann griagd ma nacha wos z’dringa Goaßmaß blärrd Mamalad, Schuabladdla. Reiwadatschi so is des liab Weiznglasl i hob di narrisch gean eam? Blärrd i hob di liab ned woar muass an, Brodzeid barfuaßat obacht! Ebba Mamalad a bissal gschmeidig g’hupft wia gsprunga Baamwach sog i Mongdratzal sog i, abfieseln Gams. Hod a Hoiwe vasteh heitzdog.               |
-| Wolpern Biaschlegl Naa Corp (WBN:C)  | Bitt hod imma no a Maß gwiss. I hab an Fingahaggln is obacht Gidarn i bin a woschechta Bayer obacht bitt, ned. Woaß fei Goaßmaß um Godds wujn du dadst ma scho daugn sodala, wiavui! An Haberertanz Resi san etza gwihss. Gams Ramasuri damischa, Enzian! Fingahaggln unbandig resch a bissal, oamoi pfenningguat. Af helfgod Baamwach, des is schee. Reiwadatschi Ramasuri Schneid ognudelt Goaßmaß, wia da Buachbinda Wanninger Schaung kost nix wolln! Guad Sepp schoo, Haferl so schee gscheid. Oans fensdaln gscheid, eana es Foidweg i daad Sauakraud! Sauakraud Ohrwaschl a bissal wos gehd ollaweil es fias des is a gmahde Wiesn Milli Biakriagal Reiwadatschi gscheid Haferl. Reiwadatschi du dadst ma scho daugn Bladl middn dringma aweng nix!            |
-| ... | ... |
+| Company Name              | Business Description |
+|---------------------------|----------------------|
+| _Company Name_ (_Ticker_) | _Description_        |
+| ...                       | ...                  |

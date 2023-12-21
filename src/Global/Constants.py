@@ -1,2 +1,6 @@
-DROPDOWN_OPTIONS = ["Company-Layer", "Generic-Layer", "Cluster-Layer"]
+COMPANY_LAYER = "Company-Layer"
+GENERIC_LAYER = "Generic-Layer"
+CLUSTER_LAYER = "Cluster-Layer"
+
+DROPDOWN_OPTIONS = [GENERIC_LAYER, COMPANY_LAYER, CLUSTER_LAYER]
 KEYWORD_DETERMINATION_OPTIONS = ["Quantity", "Occurrence"]
