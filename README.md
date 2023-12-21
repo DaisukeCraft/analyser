@@ -1,3 +1,16 @@
+# .env-Datei-Format:
+```
+GLOBAL_EXCLUDE=
+EXCLUDE=
+```
+Direkt nach dem `=` die zu exkludierenden Wörter durch Komma trennung auflisten.
+## .env-Datei-Beispiel:
+```
+GLOBAL_EXCLUDE=and,the,is
+EXCLUDE=boot,sock
+```
+
+
 # Import-Datei-Format:
 
 | Company Name              | Business Description |
