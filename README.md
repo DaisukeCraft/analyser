@@ -1,3 +1,9 @@
+# "export"-Ordner:
+Hier werden die generierten Excel-Dateien generiert
+
+# ".env"-Datei
+Hier werden die zu exkludierenden Wörter notiert
+
 # .env-Datei-Format:
 ```
 GLOBAL_EXCLUDE=
